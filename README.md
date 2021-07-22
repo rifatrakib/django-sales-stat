@@ -29,3 +29,19 @@ MEDIA_ROOT = BASE_DIR / 'media' # new
 7. Run `python manage.py runserver` to check whether the environment setup has been successful. If everything works fine, you should see the default django template on the browser, add `/admin/` at the end of the URL to visit the admin site.
 
 With this, your environment setup is completed and you are ready to start building all the apps.
+
+<hr>
+
+## Models construction
+
+8. For almost any Django project, the first thing we do is to create an app and add models in the spawned `models.py` file. In our project, we will first create 5 apps, include them in the `settings.INSTALLED_APPS` option, and then create necessary models in each of those apps.
+
+9. Run `python manage.py startapp <App name>` command with `"App name" as customers, products, profiles, reports, sales` to create 5 apps. This will create 5 directories in our project with the corresponding app names.
+
+10. Write some models in the `models.py` files of each app as in the repository. There are some additional files in `profiles` and `sales` app. We have a `signals.py` file in the `profiles` app, `signals.py and utils.py` in the `sales` app.
+
+11. The `signals.py` in `profiles` app contains a function which is called when a new user is created. This function creates a profile for the new user automatically. For that, the `ready` method is overriden in the `apps.py` file local to the app. Then the `__init__.py` file is modified with adding the line `default_app_config = 'profiles.apps.ProfilesConfig'` to it.
+
+12. The `signals.py` in `sales` app contains a function which is called when a new sales record is created. This function calculates the total price for all the items selected automatically. For that, the `ready` method is overriden in the `apps.py` file local to the app. Then the `__init__.py` file is modified with adding the line `default_app_config = 'sales.apps.SalesConfig'` to it.
+
+13. The `utils.py` file in `sales` app contains a utility function called `generate_code`. This function uses the `uuid` module to generate a 12-character transaction ID for our sales records automatically. This is called from the overriden `save` method that we wrote in the `Sale` model.

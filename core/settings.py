@@ -25,7 +25,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # custom apps
+    'customers',
+    'products',
+    'profiles',
+    'reports',
+    'sales',
 ]
+
+CRISPY_TEMPLATES_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
