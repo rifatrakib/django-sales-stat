@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.shortcuts import reverse
 
 from .utils import generate_code
 
@@ -17,6 +18,10 @@ class Position(models.Model):
     def __str__(self):
         return f'ID: {self.id}, Product: {self.product.name}, Quantity: {self.quantity}'
 
+    def get_sales_id(self):
+        sale_obj = self.sale_set.first()
+        return sale_obj.id
+
     def save(self, *args, **kwargs):
         self.price = self.product.price * self.quantity
         return super().save(*args, **kwargs)
@@ -33,6 +38,9 @@ class Sale(models.Model):
 
     def __str__(self):
         return f'Sales of amount ${self.total_price}'
+
+    def get_absolute_url(self):
+        return reverse('sales:detail', kwargs={'pk': self.pk})
 
     def save(self, *args, **kwargs):
         if self.transaction_id == '':

@@ -45,3 +45,9 @@ With this, your environment setup is completed and you are ready to start buildi
 12. The `signals.py` in `sales` app contains a function which is called when a new sales record is created. This function calculates the total price for all the items selected automatically. For that, the `ready` method is overriden in the `apps.py` file local to the app. Then the `__init__.py` file is modified with adding the line `default_app_config = 'sales.apps.SalesConfig'` to it.
 
 13. The `utils.py` file in `sales` app contains a utility function called `generate_code`. This function uses the `uuid` module to generate a 12-character transaction ID for our sales records automatically. This is called from the overriden `save` method that we wrote in the `Sale` model.
+
+## Generate HTML from Pandas dataframe
+
+14. We will create the necessary links in respective `urls.py` scripts and create some function-based and class-based views in respective `views.py` scripts. In our `Home View`, let's make a database call using Django ORM methods and pass the retrieved queryset values into `Pandas.DataFrame` method. This method converts any list type object in Pandas dataframe.
+
+15. Call the `to_html` method on the dataframe object to generate suitable HTML snippet for the dataframe object. This HTML snippet is generated as `<table>` HTML element which is then passed as context in the render method to populate the template file and a response is created. This response is then viewed on the client browser.
