@@ -13,6 +13,12 @@
 
 <br>
 
+{% if chart %}
+<img src="data:image/png;base64, {{ chart | safe }}">
+{% endif %}
+
+<br>
+
 {% if sales_df %}
 {{ sales_df | safe }}
 <br>

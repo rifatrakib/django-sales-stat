@@ -51,3 +51,11 @@ With this, your environment setup is completed and you are ready to start buildi
 14. We will create the necessary links in respective `urls.py` scripts and create some function-based and class-based views in respective `views.py` scripts. In our `Home View`, let's make a database call using Django ORM methods and pass the retrieved queryset values into `Pandas.DataFrame` method. This method converts any list type object in Pandas dataframe.
 
 15. Call the `to_html` method on the dataframe object to generate suitable HTML snippet for the dataframe object. This HTML snippet is generated as `<table>` HTML element which is then passed as context in the render method to populate the template file and a response is created. This response is then viewed on the client browser.
+
+## Create png image from bytes stream
+
+16. Matplotlib uses different kinds of backends to create images using the data we provide. For our case, we need to display the charts as png images on the frontend; and Anti-Grain Geometry (AGG) backend is the most suitable for this purpose. The bytes stream will be encoded into `base64` object as png format. This can later be decoded as `utf-8`. This can then safely displayed on the template and rendered on the webpage as normal png image which can be viewed and downloaded as well.
+
+17. For generating graphs and charts using matplotlib and seaborn, and then rendering their bytes stream as png format string, we use two functions called `get_chart` and `get_graph` in our `sales/utils.py` script. The `get_chart` function is called from the `home_view` using necessary parameters, the function then uses the parameters to generate to graph image in the IO stream.
+
+18. The `get_chart` function then calls the `get_image` function which uses the IO stream to capture the image as png file and sent to the template to be viewed on the website.
