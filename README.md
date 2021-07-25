@@ -91,3 +91,13 @@ With this, your environment setup is completed and you are ready to start buildi
 25. Uploading files has been handled using [`dropzone.js`](https://www.dropzonejs.com/), look at the `reports/upload.js` file to understand how the uploading works. The database insertion logics are handled in the `csv_upload_view` function of `reports/views.py` script.
 
 26. Add 2 urls in the `reports/urls.py` - one for uploader page handled with class-based view `UploadTemplateView`, another for handling the upload url in the `upload.js` which calls the `csv_upload_view` and passes all the data.
+
+<hr>
+
+## Improve the file upload mechanism
+
+27. Update the `sales/models.py` file in the CSV model to avoid uploading same file twice. Handle the logic in `csv_upload_view` function.
+
+28. Remove previous data from the `csvs`, `positions` and `sales` table to perform migrations, perform the migrations and verify.
+
+29. Add alerts to the uploader page on successful upload to notify the user whether file records were stored in the database.
