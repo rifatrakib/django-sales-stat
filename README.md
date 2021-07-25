@@ -73,3 +73,9 @@ With this, your environment setup is completed and you are ready to start buildi
 20. Use the `ReportForm` ModelForm inside `reports/forms.py` to take necessary inputs for the report object. Then use the view `create_report_view` to store the form data in the database and return JSON response.
 
 21. Create `reports/utils.py` file to include additional support functions for the app. In this case, create a function `get_report_image` to create a png file from raw binary data stream and return the image url after storing it.
+
+## View reports & download as pdf
+
+22. Create templates for report list and individual report items. Place the templates into `templates/reports` directory. Create urls for retrieving these templates using class-based views written inside `reports/views.py` file.
+
+23. The pdf is generated using `xhtml2pdf` python module. For details, look into the [`xhtml2pdf Documentation for Django`](https://xhtml2pdf.readthedocs.io/en/latest/usage.html). By default, the link generated is for direct download. For our applicaiton, we want to view the pdf using url on the browser. Modify the `Content-Disposition` key of the response object and get rid of the `attachment` option to achieve this.
