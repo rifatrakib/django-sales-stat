@@ -101,3 +101,15 @@ With this, your environment setup is completed and you are ready to start buildi
 28. Remove previous data from the `csvs`, `positions` and `sales` table to perform migrations, perform the migrations and verify.
 
 29. Add alerts to the uploader page on successful upload to notify the user whether file records were stored in the database.
+
+<hr>
+
+## User profile and authentication
+
+30. The `views` functions for user authentication, i.e., login and logout (we deliberately excluded registration as this is not a public website), are put inside a `views.py` scripts inside the project directory or the `core` directory. A `login.html` template has been also created inside `templates/auth` directory. Note that the templates directory here is the root templates directory.
+
+31. Decorators and Mixins are included in all views functions and classes that are required to be private only the authenticated users.
+
+32. `LOGIN_URL` has been added to the `settings.py` script which is used to redirect any non-authenticated user to the login page.
+
+33. Create a profile information page `profiles/main.html` in the `profiles` app templates directory, and this template is rendered using the `my_profile_view` view function in the `profiles/views.py` script.

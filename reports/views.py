@@ -5,6 +5,8 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import get_template
 from django.utils.dateparse import parse_date
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Report
 from .forms import ReportForm
@@ -20,20 +22,21 @@ from xhtml2pdf import pisa
 import csv
 
 
-class ReportListView(ListView):
+class ReportListView(LoginRequiredMixin, ListView):
     model = Report
     template_name = 'reports/main.html'
 
 
-class ReportDetailView(DetailView):
+class ReportDetailView(LoginRequiredMixin, DetailView):
     model = Report
     template_name = 'reports/detail.html'
 
 
-class UploadTemplateView(TemplateView):
+class UploadTemplateView(LoginRequiredMixin, TemplateView):
     template_name = 'reports/from_file.html'
 
 
+@login_required
 def csv_upload_view(request):
     print('file is being sent')
     if request.method == 'POST':
@@ -75,6 +78,7 @@ def csv_upload_view(request):
     return HttpResponse('Hello')
 
 
+@login_required
 def create_report_view(request):
     form = ReportForm(request.POST or None)
     if request.is_ajax():
@@ -95,6 +99,7 @@ def create_report_view(request):
     return JsonResponse({'error': 'something went wrong'})
 
 
+@login_required
 def render_pdf_view(request, pk):
     template_path = 'reports/pdf.html'
     # obj = Report.objects.get(pk=pk)
