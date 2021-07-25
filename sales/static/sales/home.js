@@ -37,10 +37,11 @@ reportBtn.addEventListener("click", () => {
 
         $.ajax({
             type: "POST",
-            url: "/reports/savee/",
+            url: "/reports/save/",
             data: formData,
             success: function (response) {
                 handleAlerts("success", "Report created!");
+                reportForm.reset();
             },
             error: function (error) {
                 handleAlerts("danger", "Something went wrong!");

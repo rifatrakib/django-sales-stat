@@ -22,6 +22,10 @@ class Position(models.Model):
         sale_obj = self.sale_set.first()
         return sale_obj.id
 
+    def get_sales_customer(self):
+        sale_obj = self.sale_set.first()
+        return sale_obj.customer.name
+
     def save(self, *args, **kwargs):
         self.price = self.product.price * self.quantity
         return super().save(*args, **kwargs)

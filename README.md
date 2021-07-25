@@ -113,3 +113,22 @@ With this, your environment setup is completed and you are ready to start buildi
 32. `LOGIN_URL` has been added to the `settings.py` script which is used to redirect any non-authenticated user to the login page.
 
 33. Create a profile information page `profiles/main.html` in the `profiles` app templates directory, and this template is rendered using the `my_profile_view` view function in the `profiles/views.py` script.
+
+<hr>
+
+## Attach the Navigation bar
+
+34. Finally, complete the `navbar.html` to create a navigation bar for the website so that you can browse through different pages of the site at ease. Polish up the looks of the navbar using custom css.
+
+35. Fix JavaScript mistakes in `home.js`, add few codes to clean up after form submission.
+
+<hr>
+
+## Post scriptum
+
+If you find any mistakes, please make a pull request and let us know about the mistake so that we can make amendment to the repository. If you don't understand something, reach out to me using:
+
+[LinkedIn](https://www.linkedin.com/in/md-abdur-rakib-1508/)<br>
+[Twitter](https://twitter.com/Muhammad16052)
+
+Thank you!!!
