@@ -74,8 +74,20 @@ With this, your environment setup is completed and you are ready to start buildi
 
 21. Create `reports/utils.py` file to include additional support functions for the app. In this case, create a function `get_report_image` to create a png file from raw binary data stream and return the image url after storing it.
 
+<hr>
+
 ## View reports & download as pdf
 
 22. Create templates for report list and individual report items. Place the templates into `templates/reports` directory. Create urls for retrieving these templates using class-based views written inside `reports/views.py` file.
 
 23. The pdf is generated using `xhtml2pdf` python module. For details, look into the [`xhtml2pdf Documentation for Django`](https://xhtml2pdf.readthedocs.io/en/latest/usage.html). By default, the link generated is for direct download. For our applicaiton, we want to view the pdf using url on the browser. Modify the `Content-Disposition` key of the response object and get rid of the `attachment` option to achieve this.
+
+<hr>
+
+## Upload sales data with csv file
+
+24. Upload `csv` formatted file with schema `Pos,Transaction id,Product,Quantity,Customer,Date` to insert multiple sales records at once. These records then can be used just like the other records inserted manually. Note that, the schema must be identical to the above one.
+
+25. Uploading files has been handled using [`dropzone.js`](https://www.dropzonejs.com/), look at the `reports/upload.js` file to understand how the uploading works. The database insertion logics are handled in the `csv_upload_view` function of `reports/views.py` script.
+
+26. Add 2 urls in the `reports/urls.py` - one for uploader page handled with class-based view `UploadTemplateView`, another for handling the upload url in the `upload.js` which calls the `csv_upload_view` and passes all the data.
