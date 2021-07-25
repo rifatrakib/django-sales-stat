@@ -5,6 +5,8 @@ from .models import Sale
 from .forms import SalesSearchForm
 from .utils import get_customer_from_id, get_salesman_from_id, get_chart
 
+from reports.forms import ReportForm
+
 import pandas as pd
 
 
@@ -14,12 +16,15 @@ def home_view(request):
     sales_df = None
     positions_df = None
     merged_df = None
-    form = SalesSearchForm(request.POST or None)
+    no_data = None
+    search_form = SalesSearchForm(request.POST or None)
+    report_form = ReportForm()
 
     if request.method == 'POST':
         date_from = request.POST.get('date_from')
         date_to = request.POST.get('date_to')
         chart_type = request.POST.get('chart_type')
+        results_by = request.POST.get('results_by')
 
         sales_qs = Sale.objects.filter(
             created__date__lte=date_to, created__date__gte=date_from)
@@ -51,22 +56,23 @@ def home_view(request):
 
             df = merged_df.groupby('transaction_id', as_index=False,)[
                 'price'].sum()
-            chart = get_chart(
-                chart_type, df, labels=df['transaction_id'].values)
+            chart = get_chart(chart_type, sales_df, results_by)
 
             sales_df = sales_df.to_html()
             positions_df = positions_df.to_html()
             df = df.to_html()
             merged_df = merged_df.to_html()
         else:
-            print('No data')
+            no_data = 'No data available under the provided parameters!'
     context = {
         'df': df,
+        'no_data': no_data,
         'chart': chart,
         'merged_df': merged_df,
         'sales_df': sales_df,
         'positions_df': positions_df,
-        'form': form,
+        'search_form': search_form,
+        'report_form': report_form,
     }
     return render(request, 'sales/home.html', context)
 

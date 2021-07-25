@@ -46,11 +46,15 @@ With this, your environment setup is completed and you are ready to start buildi
 
 13. The `utils.py` file in `sales` app contains a utility function called `generate_code`. This function uses the `uuid` module to generate a 12-character transaction ID for our sales records automatically. This is called from the overriden `save` method that we wrote in the `Sale` model.
 
+<hr>
+
 ## Generate HTML from Pandas dataframe
 
 14. We will create the necessary links in respective `urls.py` scripts and create some function-based and class-based views in respective `views.py` scripts. In our `Home View`, let's make a database call using Django ORM methods and pass the retrieved queryset values into `Pandas.DataFrame` method. This method converts any list type object in Pandas dataframe.
 
 15. Call the `to_html` method on the dataframe object to generate suitable HTML snippet for the dataframe object. This HTML snippet is generated as `<table>` HTML element which is then passed as context in the render method to populate the template file and a response is created. This response is then viewed on the client browser.
+
+<hr>
 
 ## Create png image from bytes stream
 
@@ -59,3 +63,13 @@ With this, your environment setup is completed and you are ready to start buildi
 17. For generating graphs and charts using matplotlib and seaborn, and then rendering their bytes stream as png format string, we use two functions called `get_chart` and `get_graph` in our `sales/utils.py` script. The `get_chart` function is called from the `home_view` using necessary parameters, the function then uses the parameters to generate to graph image in the IO stream.
 
 18. The `get_chart` function then calls the `get_image` function which uses the IO stream to capture the image as png file and sent to the template to be viewed on the website.
+
+<hr>
+
+## Generate and store reports
+
+19. Using AJAX calls, send form data to the backend with details to include in a report. Create local `static` directory for `reports` app. Then put `home.js` in `static/reports` directory. This file contains javascript to handle sending AJAX requests and receiving JSON reponse and then puting the data from JSON response on the client browser.
+
+20. Use the `ReportForm` ModelForm inside `reports/forms.py` to take necessary inputs for the report object. Then use the view `create_report_view` to store the form data in the database and return JSON response.
+
+21. Create `reports/utils.py` file to include additional support functions for the app. In this case, create a function `get_report_image` to create a png file from raw binary data stream and return the image url after storing it.

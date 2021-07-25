@@ -35,17 +35,26 @@ def get_graph():
     return graph
 
 
-def get_chart(charts_type, data, **kwargs):
+def get_key(res_by):
+    if res_by == '#1':
+        key = 'transaction_id'
+    elif res_by == '#2':
+        key = 'created'
+    return key
+
+
+def get_chart(charts_type, data, results_by, **kwargs):
     plt.switch_backend('AGG')
     fig = plt.figure(figsize=(10, 4))
+    key = get_key(results_by)
+    df = data.groupby(key, as_index=False)['total_price'].sum()
     if charts_type == '#1':
-        # plt.bar(data['transaction_id'], data['price'])
-        sns.barplot(x='transaction_id', y='price', data=data)
+        # plt.bar(df[key], df['total_price'])
+        sns.barplot(x=key, y='total_price', data=df)
     elif charts_type == '#2':
-        labels = kwargs.get('labels')
-        plt.pie(data=data, x='price', labels=labels)
+        plt.pie(data=df, x='total_price', labels=df[key].values)
     elif charts_type == '#3':
-        plt.plot(data['transaction_id'], data['price'], 'g--x')
+        plt.plot(df[key], df['total_price'], 'g--x')
     else:
         print('Invalid Chart type')
     plt.tight_layout()
